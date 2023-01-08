@@ -1,0 +1,66 @@
+﻿@model FudeeTestApi.Models.Category
+
+@{
+    ViewData["Title"] = "Edycja";
+}
+
+<a asp-action="Index" class="fw-bolder purple"> < Powrót do listy</a>
+<div class="header-box peach">
+    <h2>edytuj kategorię</h2>
+</div>
+
+<div class="card-form-container">
+    <div class="col-md-10 interspace">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CategoryId" />
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="NameCategory" class="control-label"></label>
+                <input asp-for="NameCategory" class="form-control" />
+                <span asp-validation-for="NameCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="DescriptionCategory" class="control-label"></label>
+                <textarea asp-for="DescriptionCategory" class="form-control"></textarea>
+                <span asp-validation-for="DescriptionCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Icon" class="control-label"></label>
+                <input type="file" name="picture" id="picture" class="form-control" accept=".jpg,.gif,.png" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            </br>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Display" /> @Html.DisplayNameFor(model => model.Display)
+                </label>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <input type="submit" value="Zapisz" class="btn purple-bg max-width-center mb-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/lib/ckeditor5/ckeditor.min.js"></script>
+    <script src="~/lib/ckeditor5/translations/pl.min.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                language: 'pl'
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}

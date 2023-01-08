@@ -1,0 +1,50 @@
+﻿@model FudeeTestApi.Models.Category
+
+@{
+    ViewData["Title"] = "Szczegóły";
+}
+
+
+<a asp-action="Index" class="fw-bolder purple"> < Powrót</a>
+<div class="header-box orange">
+    <h2>Szczegóły </h2>
+</div>
+<dl class="d-flex flex-column justify-content-center align-items-md-center about-ui text-center">
+    <div class=" test">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NameCategory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NameCategory)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DescriptionCategory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DescriptionCategory)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Icon)
+        </dt>
+        <dd class = "col-sm-10">
+            <img class="img-fluid mt-3" src="~/CategoryIcon/@Model.Icon"><br />
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Display)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Display)
+        </dd>
+    </dl>
+<div>
+    <input type="submit" value="Save" class="btn max-width-center mb-3" />
+
+</div>
+</div>
+

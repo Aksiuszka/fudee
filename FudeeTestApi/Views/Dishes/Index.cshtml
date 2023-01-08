@@ -1,0 +1,67 @@
+﻿@model IEnumerable<FudeeTestApi.Models.Dish>
+
+@{
+    ViewData["Title"] = "Dania";
+}
+
+<div class="header-box violet">
+    <h2>Dania</h2>
+</div>
+
+
+<table class="table" id="dania">
+
+@foreach (var item in Model) {
+
+        <tr>
+                    <div class="peach container w-100 mb-5 results-container p-5 position-relative border-opacity-0 row">
+                <div class="col flex-column"><img src="@Url.Content("~/DishesImage/"+item.Image)" class="img-fluid circular-shape" alt="@item.NameDish" width="150" /><div>@Html.DisplayFor(modelItem => item.NameDish)</div></div>
+<div class="col fw-bolder">@Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)</div>
+<div class="col">@Html.DisplayFor(modelItem => item.DescriptionDish)</div>
+<div class="col"> @Html.DisplayFor(modelItem => item.Price)PLN</div>
+                <div class="col d-flex flex-column justify-content-around">
+                    <a class="my-1 icons" title="Szczegóły" asp-action="Details" asp-route-id="@item.DishId"><i class="bi-eye" arialabel="Szczegóły"></i></a>
+                    <a class="my-1 icons" title="Edycja" asp-action="Edit" asp-route-id="@item.DishId"><i class="bi-pen-fill" arialabel="Dodawanie"></i></a>
+                    <a class=" my-1 icons" title="Usuwanie" asp-action="Delete" asp-route-id="@item.DishId"><i class="bi-trash" arialabel="Usuwanie dania"></i></a>
+                </div>
+    </div>
+            
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#opinie').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Brak danych do wyświetlenia",
+                    "info": " Pozycje od _START_ do _END_ z _TOTAL_ rekordów",
+                    "infoEmpty": "Pozycji 0 z 0 dostępnych",
+                    "infoFiltered": "(filtrowanie z _MAX_ dostępnych pozycji)",
+                    "infoPostFix": "",
+                    "thousands": " ",
+                    "lengthMenu": "Pokaż _MENU_ pozycji",
+                    "loadingRecords": "Ładowanie...",
+                    "processing": "Przetwarzanie...",
+                    "search": "Wyszukaj:",
+                    "zeroRecords": "Nie znaleziono danych",
+                    "paginate": {
+                        "first": "Pierwsza",
+                        "last": "Ostatnia",
+                        "next": "Następna",
+                        "previous": "Poprzednia"
+                    },
+                    "aria": {
+                        "sortAscending": ": sortuje kolumnę rosnąco",
+                        "sortDescending": ": sortuje kolumnę malejąco"
+                    }
+                }
+            });
+        });
+    </script>
+}

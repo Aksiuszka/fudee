@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FudeeTestApi", "FudeeTestApi\FudeeTestApi.csproj", "{864F43F6-0C09-4A5F-8C81-F83F706A2236}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{864F43F6-0C09-4A5F-8C81-F83F706A2236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{864F43F6-0C09-4A5F-8C81-F83F706A2236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{864F43F6-0C09-4A5F-8C81-F83F706A2236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{864F43F6-0C09-4A5F-8C81-F83F706A2236}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {664E9A6C-0736-4B22-ABC7-C1163E7F2A7B}
+	EndGlobalSection
+EndGlobal

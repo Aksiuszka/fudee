@@ -1,0 +1,63 @@
+﻿@model FudeeTestApi.Models.Dish
+
+@{
+    ViewData["Title"] = "Dodawanie";
+}
+<a asp-action="Index" class="fw-bolder purple"> < Powrót do listy</a>
+<div class="header-box orange">
+    <h2>dodaj danie</h2>
+</div>
+<div class="card-form-container">
+    <div class="col-md-10 interspace">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="NameDish" class="control-label"></label>
+                <input asp-for="NameDish" class="form-control" />
+                <span asp-validation-for="NameDish" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Image" class="control-label"></label>
+                <input type="file" name="picture" id="picture" class="form-control" accept=".jpg,.gif,.png" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="DescriptionDish" class="control-label"></label>
+                <input asp-for="DescriptionDish" class="form-control" />
+                <span asp-validation-for="DescriptionDish" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="RestaurantId" class="control-label"></label>
+                <select asp-for="RestaurantId" class="form-control" asp-items="ViewBag.RestaurantId">
+                    <option value="">--- Wybierz restaurację ---</option>
+                    </select>
+                
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <input type="submit" value="+ Dodaj" class="btn purple-bg max-width-center mb-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+            <script src="~/lib/ckeditor5/ckeditor.min.js"></script>
+            <script src="~/lib/ckeditor5/translations/pl.min.js"></script>
+            <script>
+                ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    language: 'pl'
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            </script>
+}

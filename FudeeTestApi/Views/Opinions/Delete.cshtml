@@ -1,0 +1,53 @@
+﻿@model FudeeTestApi.Models.Opinion
+
+@{
+    ViewData["Title"] = "Kasowanie opinii";
+}
+
+<a asp-action="Index" class="fw-bolder purple">Powrót</a>
+
+<div class="header-box peach">
+    <h2>Usuń kategorię</h2>
+</div>
+
+<h3 class="text-success">Czy na pewno chcesz usunąć tę opinię?</h3>
+<div>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Restaurant)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Restaurant.RestaurantName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.FullName)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OpinionId" />
+        <input type="submit" value="Usuń" class="btn purple-bg max-width-center mb-3" />
+    </form>
+</div>

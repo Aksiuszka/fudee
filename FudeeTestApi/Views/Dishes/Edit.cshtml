@@ -1,0 +1,54 @@
+﻿@model FudeeTestApi.Models.Dish
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<a asp-action="Index" class="fw-bolder purple"> < Powrót do listy</a>
+<div class="header-box orange">
+    <h2>edytuj danie</h2>
+</div>
+
+
+<div class="card-form-container">
+    <div class="col-md-10 interspace">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DishId" />
+            <div class="form-group fw-bolder ">
+                <label asp-for="NameDish" class="control-label"></label>
+                <input asp-for="NameDish" class="form-control" />
+                <span asp-validation-for="NameDish" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder ">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+             <div class="form-group fw-bolder ">
+                <label asp-for="DescriptionDish" class="control-label"></label>
+                <input asp-for="DescriptionDish" class="form-control" />
+                <span asp-validation-for="DescriptionDish" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder ">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder ">
+                <label asp-for="RestaurantId" class="control-label"></label>
+                <select asp-for="RestaurantId" class="form-control" asp-items="ViewBag.RestaurantId"></select>
+                <span asp-validation-for="RestaurantId" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <input type="submit" value="Save" class="btn purple-bg max-width-center mb-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

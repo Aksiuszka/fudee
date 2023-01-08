@@ -1,0 +1,60 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+
+<div class="row">
+    <!--login-->
+    <div class="about-ui row d-flex justify-content-center align-content-center">
+        <div class="col d-flex justify-content-center align-content-center"><img src="~/assets/log.png" alt="login img" width="90%"/></div>
+        <div class="col d-flex w-100 p-5 justify-content-center align-content-center">
+            <form id="account" method="post">
+                <div class="d-flex justify-content-center align-content-center gap-4 mb-5 mt-5"><h2 class="fw-bolder ">Zaloguj się</h2><div class="ball mt-2"></div></div>
+                
+         
+                <div asp-validation-summary="ModelOnly" class="text-danger d-flex flex-column justify-content-center align-content-center"></div>
+                <div class="d-flex flex-column gap-1 mb-3  ">
+                    <label asp-for="Input.Email" class="form-label fw-bolder dark"></label>
+                    <input asp-for="Input.Email" class="form-control white radius " autocomplete="username" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="d-flex flex-column gap-1 mb-3  ">
+                    <label asp-for="Input.Password" class="form-label fw-bolder dark"></label>
+                    <input asp-for="Input.Password" class="form-control white radius " autocomplete="current-password" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div>
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input orange-border" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                </div>
+                <div class=" d-flex gap-5 fw-bolder purple mt-5">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--login-->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,153 @@
+﻿@using System.Security.Claims
+@model FudeeTestApi.Models.ViewModels.RestaurantWithOpinions
+
+@{
+    ViewData["Title"] = @Model.SelectedRestaurant.RestaurantName;
+}
+<a asp-action="Index" class="fw-bolder purple"> < Powrót do listy</a>
+<div class="header-box peach d-flex align-items-center">
+    <h2>@Model.SelectedRestaurant.RestaurantName</h2>
+	<img src="/assets/stars.png" alt="stars" />
+
+</div>
+<section class="details-structure">
+    <div class="col-md-9 h-100 details menu">
+        <h2>Menu</h2>
+        @{
+            if (!String.IsNullOrEmpty(Model.SelectedRestaurant.Logo))
+            {
+                <img class="img-fluid mt-3" src="~/RestaurantLogo//@Model.SelectedRestaurant.Logo">
+            }
+            else
+            {
+                <hr />
+            }
+        }
+        <table class="table" id="Menu">
+
+            <div class="menu-container">
+                @foreach (var item in Model.SelectedRestaurant.Dishes)
+                {
+                    <div class="results-container p-5 container lavender w-100 mb-5">
+                        <div class="flex-column col-md-4">
+                        <div class="w-100 d-flex justify-content-center">
+                        <h4>
+                            @Html.DisplayFor(modelItem => item.NameDish)
+                        </h4>
+                       
+                        </div>
+                     
+           
+                            <img src="@Url.Content("~/DishesImage/"+item.Image)" class="img-fluid circular-shape" alt="@item.NameDish" width="150" />
+                        </div>
+                        
+                         <div class="p-4">
+                            @Html.DisplayFor(modelItem => item.DescriptionDish)
+                        </div>
+                        <div class="p-4">
+                            @Html.DisplayFor(modelItem => item.Price) PLN
+                        </div>
+
+                        <div>
+                            <a class=" my-2" title="Edycja" asp-action="Edit" asp-controller="Dishes" asp-route-id="@item.DishId"><i class="bi-pen-fill" arialabel="Edycja dania"></i></a>
+                            <a class=" my-2" title="Usuwanie" asp-action="Delete" asp-controller="Dishes" asp-route-id="@item.DishId"><i class="bi-trash" arialabel="Usuwanie dana"></i></a>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </table>
+    </div>
+    <div class="col-md-3 h-100 ">
+    <div class="h-100 pink details">
+        <h5>Dane Restauracji</h5>
+        <h6><i class="bi bi-person-circle me-1"></i><span class=" fw-bold">@Model.SelectedRestaurant.User.FullName</span></h6>
+        <h6><i class="bi bi-calendar-event me-1"></i>@Model.SelectedRestaurant.AddedDate.ToString("dd MMMM yyyy")</h6>
+        <h6><i class="bi bi-folder2-open me-1"></i>@Model.SelectedRestaurant.Category.NameCategory</h6>
+        <h6><i class="bi bi-chat-square-text me-1"></i>@Model.CommentsNumber @Model.Description</h6>
+        <h6>
+            <i class="bi bi bi-trophy me-1"></i><star-rating rating-avg=@Model.AverageScore rating-count=@Model.OpinionsNumber></star-rating>
+            @if (@Model.OpinionsNumber > 0)
+            {
+                <small class="text-secondary">(@Model.AverageScore.ToString("#.#") z @Model.OpinionsNumber)</small>
+            }
+        </h6>
+
+        <div class="mb-3">
+            @if (User.FindFirstValue(ClaimTypes.NameIdentifier) == Model.SelectedRestaurant.Id)
+            {
+                <a asp-action="Edit" asp-route-id="@Model?.SelectedRestaurant.RestaurantId" class="btn btn-warning">Edycja restauracji</a>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button type="button" class="btn nav-link p-2 btn-link max-width-center mb-3" data-bs-toggle="modal" data-bs-target="#newOpinion">Dodaj opinię</button>
+
+            }
+        </div>
+    </div>
+    <div class="col-md-3 h-100 w-100 peach details mt-5">
+            <h5>Opinie</h5>
+            <div id="comments">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="alert alert-info mt-3" role="alert">
+                        Musisz być zalogowany(-na), aby móc przeglądać i dodawać opinie.
+                    </div>
+                }
+                else if (Model.SelectedRestaurant.Opinions == null || !Model.SelectedRestaurant.Opinions.Any())
+                {
+                    <div class="alert alert-success mt-3" role="alert">
+                        Dodaj pierwszy komentarz do tego tekstu.
+                    </div>
+                }
+                else
+                {
+                    foreach (var item in Model.SelectedRestaurant.Opinions.OrderByDescending(c => c.OpinionId))
+                    {
+
+
+                        <div class="">
+                                <h6>
+                                    <span class="fw-bold ">@item.User.FullName </span>
+                                    <small class="text-secondary me-5"> dodano: @item.AddedDate.ToString("dd.MM.yyyy") </small>
+                                    @if (item.Rating == null)
+                                    {
+                                        item.Rating = 0;
+                                    }
+                                    <star-rating rating-avg=(double)@item.Rating rating-count=1></star-rating>
+                                </h6>
+                                <p class="smaller">@item.Comment</p>
+                            </div>
+                       
+                    }
+                }
+            </div>
+        </div> </div>
+</section>
+
+          
+<div class="col-lg-9 offset-lg-3">
+
+    <!-- Modal -->
+    <div class="modal fade" id="newOpinion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 oswald text-primary" id="exampleModalLabel">Dodawanie opinii</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <partial name="~/Views/Opinions/CreatePartial.cshtml" model="@Model.NewOpinion" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

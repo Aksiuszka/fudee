@@ -1,0 +1,95 @@
+﻿@model IEnumerable<FudeeTestApi.Models.Restaurant>
+
+@{
+    ViewData["Title"] = "Lista restauracji";
+}
+
+<div class="header-box peach d-flex align-items-center">
+    <h2>Lista restauracji</h2>
+    <img src="/assets/Star 1.png" alt="stars" />
+
+</div>
+
+<table class="table" id="restauracje">
+
+ 
+@foreach (var item in Model) {
+        <tr>
+            <section class="violet container w-100 mb-3 results-container p-5 position-relative border-opacity-0 row">
+                <div class="col-md-2 flex-column"> <img src="@Url.Content(item.Logo == null ? "~/RestaurantLogo/brak.jpg" : "~/RestaurantLogo/"+item.Logo)" class="circular-shape" width="180" alt="@item.Category.NameCategory" /><div class="mt-2 fw-bold">@Html.DisplayFor(modelItem => item.RestaurantName)</div><p class="fst-italic">@Html.DisplayFor(modelItem => item.User.FullName) </p></div>
+
+                <div class="col col-md-3 d-flex flex-column">
+                    <p>@Html.DisplayFor(modelItem => item.Address.City), 
+                        @Html.DisplayFor(modelItem => item.Address.StreetName),
+                   
+                        @Html.DisplayFor(modelItem => item.Address.StreetNr)/@Html.DisplayFor(modelItem => item.Address.LocalNr), @Html.DisplayFor(modelItem => item.Address.PostalCode)
+                    </p>
+                   
+                    <p>
+                        kom. @Html.DisplayFor(modelItem => item.Address.ContactPhone)
+                    </p>
+                    <p>
+                        e-mail: @Html.DisplayFor(modelItem => item.Address.ContactEmail)
+                    </p>
+                
+                   
+                </div>
+                <div class="col-md-6 fst-italic">@Html.DisplayFor(modelItem => item.RestaurantDescription)</div>
+            
+               
+                <div class="col-md-1 d-flex flex-column justify-content-around">
+                   <a class=" icons my-1" title="Szczegóły" asp-action="Details" asp-route-id="@item.RestaurantId"><i class="bi-eye" arialabel="Szczegóły restauracji"></i></a>
+                    <a class=" icons  my-1" title="Opinie" asp-action="Index" asp-controller="Opinions" asp-route-id="@item.RestaurantId"><i class="bi-chat-left-text" arialabel="Opinie o restauracji"></i></a>
+                    <a class=" icons my-1" title="Usuwanie" asp-action="Delete" asp-route-id="@item.RestaurantId"><i class="bi-trash" arialabel="Usuwanie restauracji"></i></a>
+                </div>
+                </section>
+            <div class=" pink w-100 mb-5 results-container p-3 border-opacity-0 row">
+                <div class="d-flex justify-content-start gap-5">
+                <div>Dowóz: @Html.DisplayFor(modelItem => item.HasDelivery)</div>
+                <div>Katering: @Html.DisplayFor(modelItem => item.HasCatering)</div>
+                <div>Imprezy: @Html.DisplayFor(modelItem => item.Events)</div>
+                </div>
+                <div class="fst-italic d-flex justify-content-start gap-3 mt-3">
+                    <p class="fst-italic">Godziny otarcia: </p><p class="fw-bold">@Html.DisplayFor(modelItem => item.OpenHours) : @Html.DisplayFor(modelItem => item.CloseHours)</p>
+            </div>
+           
+            
+        </tr>
+}
+    </tbody>
+</table>
+
+
+@section Scripts{
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#teksty').DataTable({
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "Brak danych do wyświetlenia",
+                        "info": " Pozycje od _START_ do _END_ z _TOTAL_ rekordów",
+                        "infoEmpty": "Pozycji 0 z 0 dostępnych",
+                        "infoFiltered": "(filtrowanie z _MAX_ dostępnych pozycji)",
+                        "infoPostFix": "",
+                        "thousands": " ",
+                        "lengthMenu": "Pokaż _MENU_ pozycji",
+                        "loadingRecords": "Ładowanie...",
+                        "processing": "Przetwarzanie...",
+                        "search": "Wyszukaj:",
+                        "zeroRecords": "Nie znaleziono danych",
+                        "paginate": {
+                            "first": "Pierwsza",
+                            "last": "Ostatnia",
+                            "next": "Następna",
+                            "previous": "Poprzednia"
+                        },
+                        "aria": {
+                            "sortAscending": ": sortuje kolumnę rosnąco",
+                            "sortDescending": ": sortuje kolumnę malejąco"
+                        }
+                    }
+                });
+            });
+        </script>
+}

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<FudeeTestApi.Models.Category>
+
+@{
+    ViewData["Title"] = "Rodzaje kuchni";
+}
+
+
+<!--Header-->
+<div class="header-box peach">
+    <div>
+        <h2>Kuchnie w Płocku</h2>
+        <p>Wybierz, co Cię interesuje!</p>
+    </div>
+    <img src='~/assets/Star 1.png' slt="star" />
+</div>
+<!--Header-->
+
+
+<div class="btn custom-width"><a asp-action="Create"> + Nowa kuchnia</a></div>
+<div class="card-category-container">
+    @foreach (var item in Model)
+    {
+        <div class="custom-card-ui pink">
+            <div class="card-body-category">
+                <p class="card-text primary-text">@Html.DisplayFor(modelItem => item.NameCategory)</p>
+                <img src="@Url.Content("~/CategoryIcon/"+item.Icon)" class="img-fluid" alt="@item.NameCategory" width="150" />
+                <div class="options-container">
+                    <p class="card-text secondary-text fw-bold"><a asp-controller="Restaurants" asp-action="ListSelektywna" asp-route-id="@item.CategoryId">Znajdź restaurację ></a></p>
+                    <div class="admin-container">
+                    @{
+                        if (User.IsInRole("admin") || User.IsInRole("restaurator"))
+                        
+                        {
+                            
+                                <p class="card-text secondary-text">
+                                    <a asp-action="Details" asp-route-id="@item.CategoryId">Szczegóły</a></p>
+                            if (User.IsInRole("admin"))
+                            {
+                              
+
+                                    <p class="card-text secondary-text">  <a asp-action="Edit" asp-route-id="@item.CategoryId">Edytuj</a></p>
+                                    <p class="card-text secondary-text"> <a asp-action="Delete" asp-route-id="@item.CategoryId">Usunięcie</a></p>
+                               
+                            }
+                        }
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+
+

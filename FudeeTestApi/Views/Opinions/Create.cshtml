@@ -1,0 +1,42 @@
+﻿@model FudeeTestApi.Models.Opinion
+
+@{
+    ViewData["Title"] = "Dodawanie komentarza";
+}
+
+<a asp-action="Index" class="fw-bolder purple"> < Powrót do listy</a>
+<div class="header-box orange">
+    <h2>nowa opinia</h2>
+</div>
+<h4 class="text-success">@ViewData["RestaurantName"]</h4>
+
+<div class="card-form-container">
+    <div class="col-md-6 interspace">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" id="RestaurantId" name="RestaurantId" value="@ViewData["RestaurantId"]" />
+            <div class="form-group fw-bolder mt-5">
+                <label asp-for="Comment" class="control-label"></label>
+                <textarea asp-for="Comment" class="form-control"></textarea>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5">
+                <label asp-for="Rating" class="control-label"></label>
+                <select asp-for="Rating" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(TypeOfGrade)))">
+                    <option value="">--- Wybierz ocenę ---</option>
+                </select>
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5">
+                <input type="submit" value="Zapisz ocenę" class="btn purple-bg max-width-center mb-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+}

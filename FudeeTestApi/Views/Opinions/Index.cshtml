@@ -1,0 +1,100 @@
+﻿@model IEnumerable<FudeeTestApi.Models.Opinion>
+
+@{
+    ViewData["Title"] = "Opinie o restauracjach";
+}
+
+<div class="header-box white d-flex align-items-center">
+    <h2>Opinie o restauracjach</h2>
+    <img src='~/assets/Star 1.png' slt="star" />
+
+</div>
+
+<div class="btn custom-width p-3">Aby dodać opinię, przejdź do profilu restauracji!</div>
+<table style='border-collapse: collapse;'  class="table" id="opinie">
+    <thead class="d-none">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant.RestaurantName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.FullName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <div>
+        @foreach (var item in Model)
+        {
+        <tr class="peach container w-100 mb-5 results-container p-5 position-relative border-opacity-0">
+
+            <td class="p-3 oswald secondary-bold bold-adjustment position-absolute top-0 start-0 ms-5 border-opacity-0">
+                
+                    @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
+                </td>
+            <td class="fst-italic p-3 border-opacity-0 py-5">
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+
+            <td class="fst-italic position-absolute top-0 end-0 p-3 border-opacity-0">
+                    @Html.DisplayFor(modelItem => item.AddedDate)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+            <td class="fst-italic fw-bolder position-absolute bottom-0 end-0 p-3 border-opacity-0">
+                    @Html.DisplayFor(modelItem => item.User.FullName), ocena:  @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+
+            <td class="d-flex flex-column border-opacity-0">
+                    <a class="" title="Szczegóły" asp-action="Details" asp-route-id="@item.OpinionId">Treść</a>
+                    <a class="" title="Edycja" asp-action="Edit" asp-route-id="@item.OpinionId">Edytuj</a>
+                    <a class="" title="Usuwanie" asp-action="Delete" asp-route-id="@item.OpinionId">Usuń</a>
+                </td>
+            </tr>
+        }
+    </div>
+</table>
+
+@section Scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#opinie').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "Brak danych do wyświetlenia",
+                    "info": " Pozycje od _START_ do _END_ z _TOTAL_ rekordów",
+                    "infoEmpty": "Pozycji 0 z 0 dostępnych",
+                    "infoFiltered": "(filtrowanie z _MAX_ dostępnych pozycji)",
+                    "infoPostFix": "",
+                    "thousands": " ",
+                    "lengthMenu": "Pokaż _MENU_ pozycji",
+                    "loadingRecords": "Ładowanie...",
+                    "processing": "Przetwarzanie...",
+                    "search": "Wyszukaj:",
+                    "zeroRecords": "Nie znaleziono danych",
+                    "paginate": {
+                        "first": "Pierwsza",
+                        "last": "Ostatnia",
+                        "next": "Następna",
+                        "previous": "Poprzednia"
+                    },
+                    "aria": {
+                        "sortAscending": ": sortuje kolumnę rosnąco",
+                        "sortDescending": ": sortuje kolumnę malejąco"
+                    }
+                }
+            });
+        });
+    </script>
+}

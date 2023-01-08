@@ -1,0 +1,43 @@
+﻿@model FudeeTestApi.Models.Opinion
+
+@{
+    ViewData["Title"] = "Edycja opinii";
+}
+
+<a asp-action="Index" class="fw-bolder purple"> < Powrót do listy</a>
+<div class="header-box peach">
+    <h2>Edycja opinii</h2>
+</div>
+<div class="card-form-container">
+    <div class="col-md-4 interspace">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OpinionId" />
+            <input type="hidden" asp-for="AddedDate" />
+            <input type="hidden" asp-for="RestaurantId" value="@ViewBag.RestaurantId" />
+            <input type="hidden" asp-for="Id" value="@ViewBag.Author" />
+
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Comment" class="control-label"></label>
+                <textarea asp-for="Comment" class="form-control txt-area"></textarea>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Rating" class="control-label"></label>
+                <!--<input asp-for="Rating" class="form-control" />-->
+                <select asp-for="Rating" class="form-control" asp-items="ViewBag.Rating"></select>
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <input type="submit" value="Zapisz zmiany" class="btn purple-bg max-width-center mb-3" />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

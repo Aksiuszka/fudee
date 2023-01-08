@@ -1,0 +1,50 @@
+﻿@model FudeeTestApi.Models.Dish
+
+@{
+    ViewData["Title"] = "Details";
+}
+<a asp-action="Index" class="fw-bolder purple"> < Powrót do listy</a>
+<div class="header-box peach d-flex align-items-center">
+    <h2>o daniu</h2>
+    <img src="/assets/Star 1.png" alt="stars" />
+
+</div>
+
+<div class=".card-body-category radius p-5 peach">
+
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NameDish)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NameDish)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DescriptionDish)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DescriptionDish)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Restaurant)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Restaurant.Id)
+        </dd>
+    </dl>
+</div>
+<div class="mt-5">
+    <a asp-action="Edit" asp-route-id="@Model?.DishId" class="fw-bolder purple">Edytuj</a>
+</div>

@@ -1,0 +1,134 @@
+﻿@model FudeeTestApi.Models.Restaurant
+
+@{
+    ViewData["Title"] = "Dodawanie";
+}
+
+<a asp-action="Index" class="fw-bolder purple"> < Powrót do listy</a>
+<div class="header-box orange">
+    <h2>nowa kategoria</h2>
+</div>
+
+@{
+    if (!String.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">@ViewBag.ErrorMessage</div>
+    }
+}
+
+
+<div class="card-form-container">
+    <div class="col-md-10 interspace">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="RestaurantName" class="control-label"></label>
+                <input asp-for="RestaurantName" class="form-control" />
+                <span asp-validation-for="RestaurantName" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Address.StreetName" class="control-label"></label>
+                <input asp-for="Address.StreetName" class="form-control" />
+                <span asp-validation-for="Address.StreetName" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Address.StreetNr" class="control-label"></label>
+                <input asp-for="Address.StreetNr" class="form-control" />
+                <span asp-validation-for="Address.StreetNr" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Address.LocalNr" class="control-label"></label>
+                <input asp-for="Address.LocalNr" class="form-control" />
+                <span asp-validation-for="Address.LocalNr" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Address.PostalCode" class="control-label"></label>
+                <input asp-for="Address.PostalCode" class="form-control" />
+                <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Address.City" class="control-label"></label>
+                <input asp-for="Address.City" class="form-control" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Address.ContactPhone" class="control-label"></label>
+                <input asp-for="Address.ContactPhone" class="form-control" />
+                <span asp-validation-for="Address.ContactPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Address.ContactEmail" class="control-label"></label>
+                <input asp-for="Address.ContactEmail" class="form-control" />
+                <span asp-validation-for="Address.ContactEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="Logo" class="control-label"></label>
+                <input type="file" name="logo" id="logo" class="form-control" accept=".jpg,.gif,.png" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="RestaurantDescription" class="control-label"></label>
+                <textarea id="editor" asp-for="RestaurantDescription" class="form-control"></textarea>
+                <span asp-validation-for="RestaurantDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="OpenHours" class="control-label"></label>
+                <input asp-for="OpenHours" class="form-control" />
+                <span asp-validation-for="OpenHours" class="text-danger"></span>
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="CloseHours" class="control-label"></label>
+                <input asp-for="CloseHours" class="form-control" />
+                <span asp-validation-for="CloseHours" class="text-danger"></span>
+            </div> 
+            <div class="form-group form-check fw-bolder mt-5">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasDelivery" /> @Html.DisplayNameFor(model => model.HasDelivery)
+                </label>
+            </div>
+            <div class="form-group form-check fw-bolder mt-5">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasCatering" /> @Html.DisplayNameFor(model => model.HasCatering)
+                </label>
+            </div>
+            <div class="form-group form-check fw-bolder mt-5">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Events" /> @Html.DisplayNameFor(model => model.Events)
+                </label>
+            </div>
+
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"><option value="">--- Wybierz kuchnię ---</option></select>
+                
+            </div>
+            <div class="form-group fw-bolder mt-5 ">
+                <label asp-for="SocialMedia" class="control-label"></label>
+                <input asp-for="SocialMedia" class="form-control" />
+                <span asp-validation-for="SocialMedia" class="text-danger"></span>
+            </div>
+
+            <div class="form-group fw-bolder mt-5 ">
+                <input type="submit" value="+ Dodaj" class="btn purple-bg max-width-center mb-3" />
+         
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+        <script src="~/lib/ckeditor5/ckeditor.min.js"></script>
+        <script src="~/lib/ckeditor5/translations/pl.min.js"></script>
+        <script>
+            ClassicEditor
+            .create(document.querySelector('#editor'), {
+                language: 'pl'
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        </script>
+}

@@ -1,0 +1,31 @@
+﻿@using System.Security.Claims;
+@model FudeeTestApi.Models.Opinion;
+
+
+<div class="row interspace">
+    <form asp-action="CreatePartial" asp-controller="Opinions" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" id="RestaurantId" name="RestaurantId" value="@Model.RestaurantId" />
+        <div class="form-group">
+            <label asp-for="Comment" class="control-label"></label>
+            <textarea asp-for="Comment" class="form-control"></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+        @if (User.FindFirstValue(ClaimTypes.NameIdentifier) != Model.Id)
+        {
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <select asp-for="Rating" class="form-control" asp-items="@new SelectList(Enum.GetNames(typeof(TypeOfGrade)))">
+                    <option value="">--- Wybierz ocenę ---</option>
+                </select>
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+        }
+        <div class="modal-footer">
+            <div class="form-group">
+                <input type="submit" value="Zapisz ocenę" class="btn purple-bg max-width-center mb-3" />
+                <div data-bs-dismiss="modal" class="">Powrót do tekstu</div>
+            </div>
+        </div>
+    </form>
+</div>

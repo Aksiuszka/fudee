@@ -1,0 +1,48 @@
+﻿@model FudeeTestApi.Models.Opinion
+
+@{
+    ViewData["Title"] = "Opinia do restauracji " + Model.Restaurant.RestaurantName;
+}
+
+<a asp-action="Index" class="fw-bolder purple"> < Powrót</a>
+<div class="header-box orange">
+    <h2>Szczegóły opinii</h2>
+</div>
+
+
+<div>
+    <dl class="pink custom-ui text-center">
+        <div class=" test">
+          
+            <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+            </dt>
+       
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Comment)
+            </dd>
+           
+        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rating)
+        <dt class = "col-sm-2">
+            Autor
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User.FullName)
+        </dd>
+        </div>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.OpinionId" class="btn btn-warning">Edytuj</a>
+</div>
